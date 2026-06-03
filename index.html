@@ -9,14 +9,11 @@
 
     <style>
         :root {
-            /* Se corrigió la sintaxis para que el color café aplique correctamente */
-            --dark-text: #634235; 
-            --anahuac-orange: #F96D13; 
-            --circle-color: rgba(230, 226, 222, 0.6); 
-            --light-text: #E6E2DE; 
+            /* Nueva paleta: Negro, Marfil y Dorado Claro */
+            --prepa-gold: #D4AF37; /* Tono dorado claro sofisticado */
+            --text-light: #E6E2DE; /* Marfil claro para texto */
             --bg-black: #000000;
             --white: #ffffff;
-            --silver-text: #C0C0C2;
             --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -27,18 +24,21 @@
             box-sizing: border-box; 
         }
         
+        html {
+            background-color: var(--bg-black);
+        }
+
         body { 
             font-family: 'Inter', sans-serif;
-            color: var(--dark-text);
+            color: var(--text-light);
             line-height: 1.8; 
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
         }
 
-        /* --- FONDO DE IMAGEN SOLICITADO (3.png) --- */
-        body::after {
-            content: '';
+        /* --- FONDO DE IMAGEN (3.png) --- */
+        .bg-image {
             position: fixed;
             top: 0; 
             left: 0; 
@@ -47,7 +47,19 @@
             background-image: url('3.png');
             background-size: cover;
             background-position: center;
+            z-index: -3;
+        }
+
+        /* --- DEGRADADO NEGRO INMERSIVO EN LOS BORDES --- */
+        .vignette-overlay {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.85) 90%, #000000 100%);
             z-index: -2;
+            pointer-events: none;
         }
 
         /* --- TRAZADOS DECORATIVOS SECUNDARIOS --- */
@@ -72,7 +84,7 @@
         .rounded-square {
             width: 250px;
             height: 250px;
-            border: 1px solid var(--anahuac-orange);
+            border: 1px solid var(--prepa-gold);
             border-radius: 300px; 
         }
 
@@ -89,8 +101,8 @@
             font-weight: normal;
         }
 
-        h1 { color: var(--dark-text); }
-        h3 { color: var(--anahuac-orange); } 
+        h1 { color: var(--text-light); }
+        h3 { color: var(--prepa-gold); } 
 
         /* --- ANIMACIONES GENERALES --- */
         @keyframes reveal {
@@ -142,13 +154,14 @@
             pointer-events: none;
         }
 
+        /* Círculos adaptados al tema dorado */
         .circle {
             position: absolute;
-            background-color: var(--circle-color);
             border-radius: 50%;
+            background-color: rgba(212, 175, 55, 0.03); /* Relleno dorado casi invisible */
+            border: 1px solid rgba(212, 175, 55, 0.15); /* Borde dorado tenue */
         }
 
-        /* Tamaños, posiciones y movimientos de círculos responsivos */
         .circle-1 { width: 45vw; height: 45vw; top: -10%; left: -15%; animation: float1 12s ease-in-out infinite; }
         .circle-2 { width: 25vw; height: 25vw; top: 10%; right: -5%; animation: float2 10s ease-in-out infinite; }
         .circle-3 { width: 15vw; height: 15vw; bottom: 15%; left: 10%; animation: float3 8s ease-in-out infinite; }
@@ -165,13 +178,13 @@
             font-size: clamp(2.5rem, 9vw, 4.8rem); 
             margin-bottom: 5px; 
             font-weight: 600;
-            color: var(--light-text); 
+            color: var(--text-light); 
         }
 
         header p { 
             font-size: 1.1rem; 
             letter-spacing: 10px; 
-            color: var(--light-text); 
+            color: var(--text-light); 
             font-weight: 400; 
             margin-top: 20px; 
         }
@@ -180,7 +193,7 @@
             width: 100px; 
             height: 2px; 
             border: none; 
-            background: var(--anahuac-orange); 
+            background: var(--prepa-gold); 
             margin: 30px auto; 
         }
 
@@ -206,8 +219,8 @@
             font-size: clamp(2.5rem, 11vw, 5rem);
             padding: 30px 70px;
             margin-bottom: 110px;
-            border-top: 1px solid rgba(99, 66, 53, 0.3); 
-            border-bottom: 1px solid rgba(99, 66, 53, 0.3);
+            border-top: 1px solid rgba(212, 175, 55, 0.4); 
+            border-bottom: 1px solid rgba(212, 175, 55, 0.4);
             font-weight: 600;
         }
 
@@ -223,12 +236,12 @@
             font-weight: 400;
         }
 
-        .btn-ivory {
+        .btn-gold {
             display: inline-block;
             padding: 22px 70px;
-            border: 2px solid var(--anahuac-orange);
-            color: var(--dark-text); 
-            background: rgba(255, 255, 255, 0.6); 
+            border: 2px solid var(--prepa-gold);
+            color: var(--text-light); 
+            background: rgba(0, 0, 0, 0.6); 
             text-decoration: none;
             font-size: 1rem;
             text-transform: uppercase;
@@ -236,11 +249,12 @@
             transition: var(--transition-smooth);
             font-weight: 600;
             border-radius: 50px;
+            backdrop-filter: blur(4px);
         }
 
-        .btn-ivory:hover { 
-            background: var(--anahuac-orange); 
-            color: var(--white); 
+        .btn-gold:hover { 
+            background: var(--prepa-gold); 
+            color: #000000; /* Texto negro al hacer hover para contraste */
         }
 
         /* --- ITINERARIO UNIFORME --- */
@@ -261,12 +275,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 22px 0;
-            border-bottom: 1px solid rgba(99, 66, 53, 0.2);
+            border-bottom: 1px solid rgba(230, 226, 222, 0.1);
         }
 
         .timeline-row span:first-child { 
             font-weight: 600; 
-            color: var(--anahuac-orange); 
+            color: var(--prepa-gold); 
             min-width: 120px; 
             text-align: left; 
             font-family: 'Alata', sans-serif;
@@ -276,7 +290,7 @@
             text-align: right; 
             font-weight: 600; 
             font-size: 1.1rem; 
-            color: var(--dark-text); 
+            color: var(--text-light); 
         }
 
         /* --- MENÚ --- */
@@ -294,22 +308,22 @@
 
         .menu-block {
             margin-bottom: 50px;
-            background: rgba(255, 255, 255, 0.65);
-            border: 1px solid rgba(249, 109, 19, 0.4);
+            background: rgba(10, 10, 10, 0.7); /* Fondo oscuro translúcido */
+            border: 1px solid rgba(212, 175, 55, 0.2);
             padding: 50px 40px;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
         }
 
         .menu-block h4 {
             font-family: 'Alata', sans-serif;
             font-size: 1.6rem;
-            color: var(--anahuac-orange);
+            color: var(--prepa-gold);
             margin-bottom: 40px;
             letter-spacing: 4px;
             text-transform: uppercase;
             text-align: center;
-            border-bottom: 1px solid rgba(249, 109, 19, 0.4);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             display: inline-block;
             padding-bottom: 15px;
         }
@@ -322,7 +336,7 @@
         .menu-course strong {
             display: block;
             font-family: 'Alata', sans-serif;
-            color: var(--anahuac-orange);
+            color: var(--prepa-gold);
             font-size: 1.1rem;
             margin-bottom: 10px;
             letter-spacing: 2px;
@@ -331,7 +345,7 @@
         .menu-course p {
             font-size: 0.95rem;
             font-weight: 400;
-            color: var(--dark-text);
+            color: var(--text-light);
         }
         
         .menu-list {
@@ -343,7 +357,7 @@
         .menu-list li {
             font-size: 0.95rem;
             font-weight: 400;
-            color: var(--dark-text);
+            color: var(--text-light);
             margin-bottom: 15px;
         }
 
@@ -359,10 +373,10 @@
 
         .rec-item {
             padding: 50px;
-            background: rgba(255, 255, 255, 0.65); 
-            border: 1px solid rgba(249, 109, 19, 0.4);
+            background: rgba(10, 10, 10, 0.7); 
+            border: 1px solid rgba(212, 175, 55, 0.2);
             text-align: left;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
         }
 
@@ -372,13 +386,13 @@
             font-family: 'Alata', sans-serif; 
             text-transform: uppercase; 
             font-size: 1.1rem; 
-            color: var(--anahuac-orange); 
+            color: var(--prepa-gold); 
         }
 
         .rec-item p { 
             font-size: 0.95rem; 
             font-weight: 400; 
-            color: var(--dark-text); 
+            color: var(--text-light); 
         }
 
         /* --- AUDIO --- */
@@ -390,46 +404,62 @@
             height: 75px;
             border-radius: 50%; 
             z-index: 5000; 
-            border: 2px solid var(--anahuac-orange);
-            background: rgba(255, 255, 255, 0.8); 
+            border: 2px solid var(--prepa-gold);
+            background: rgba(0, 0, 0, 0.8); 
             cursor: pointer;
             display: flex; 
             align-items: center; 
             justify-content: center; 
             font-size: 1.8rem;
             transition: var(--transition-smooth); 
-            color: var(--dark-text);
+            color: var(--text-light);
             backdrop-filter: blur(8px);
         }
 
         #music-btn:hover { 
             transform: scale(1.1); 
-            background: var(--anahuac-orange);
-            color: var(--white);
+            background: var(--prepa-gold);
+            color: #000000;
         }
 
         footer { 
             padding: 120px 20px; 
             text-align: center; 
-            border-top: 1px solid rgba(99, 66, 53, 0.1); 
+            border-top: 1px solid rgba(255, 255, 255, 0.1); 
         }
 
+        /* --- ADAPTACIÓN MÓVIL --- */
         @media (max-width: 768px) {
+            main { padding: 60px 15px; }
+
             .date-display { 
                 gap: 20px; 
                 padding: 25px 40px; 
+                margin-bottom: 80px;
+                font-size: clamp(2.2rem, 9vw, 4rem);
             }
+
+            .timeline-container, .menu-section, .recs-grid {
+                margin-top: 60px;
+            }
+
             .square-pair { display: none; }
             .circle-1 { width: 60vw; height: 60vw; }
             .circle-2 { width: 35vw; height: 35vw; }
             .circle-4 { width: 45vw; height: 45vw; }
-            .timeline-row span:first-child { min-width: 100px; font-size: 1rem; }
-            .timeline-row span:last-child { font-size: 1rem; }
-            .menu-block { padding: 40px 20px; }
+            
+            .timeline-row span:first-child { min-width: 100px; font-size: 0.95rem; }
+            .timeline-row span:last-child { font-size: 0.95rem; }
+            
+            .menu-block { padding: 40px 20px; margin-bottom: 30px; }
+            .rec-item { padding: 40px 25px; }
         }
     </style>
 </head>
 <body>
+
+    <div class="bg-image"></div>
+    <div class="vignette-overlay"></div>
 
     <div class="decor-layer">
         <div class="square-pair pos-1"><div class="rounded-square"></div><div class="rounded-square"></div></div>
@@ -471,7 +501,7 @@
         <div class="location-box reveal-node">
             <h3>RECEPCIÓN</h3>
             <p>Hacienda El Coecillo<br>Estado de México</p>
-            <a href="https://www.google.com/maps/place/Hacienda+El+Coecillo/@19.2931026,-99.5759841,17z/data=!3m1!4b1!4m6!3m5!1s0x85cd8bb89b7af733:0xbe0e6a2914cb1c9c!8m2!3d19.2931026!4d-99.5734092!16s%2Fg%2F11rc77554b?entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-ivory">Ver Ubicación</a>
+            <a href="https://www.google.com/maps/place/Hacienda+El+Coecillo/@19.2931026,-99.5759841,17z/data=!3m1!4b1!4m6!3m5!1s0x85cd8bb89b7af733:0xbe0e6a2914cb1c9c!8m2!3d19.2931026!4d-99.5734092!16s%2Fg%2F11rc77554b?entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn-gold">Ver Ubicación</a>
         </div>
 
         <article class="timeline-container reveal-node">
